@@ -6,8 +6,8 @@ TEMPS = aux log nav out snm toc vrb
 all: $(PRESENTATION).pdf
 
 %.pdf:
-	pdflatex $(@:.pdf=.tex)
-	pdflatex $(@:.pdf=.tex)
+	pdflatex -shell-escape $(@:.pdf=.tex)
+	pdflatex -shell-escape $(@:.pdf=.tex)
 
 clean:
 	for s in $(TEMPS); do rm -f $(PRESENTATION).$$s; done

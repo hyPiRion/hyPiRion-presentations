@@ -4,13 +4,20 @@
 \usepackage{color}
 \usepackage{xcolor}
 
+\definecolor{solarbg}{HTML}{FDF6E3}
 \definecolor{Green}{HTML}{00BB00}
+
+\usepackage{minted}
+\newminted{java}{bgcolor=solarbg,frame=single}
+\newminted{clj}{bgcolor=solarbg,frame=single}
+\newminted{py}{bgcolor=solarbg,frame=single}
+\usemintedstyle{solarized}
 
 \usetheme{Antibes}
 \usecolortheme[named=Green]{structure}
 
 \titlegraphic{\includegraphics[scale=0.75]{img/clj.pdf}}
-\title[Introduksjonskurs til programmeringsspråket Clojure]{Kurs i Clojure}
+\title[Introduksjonskurs til programmeringsspråket Clo{\em j}ure]{Kurs i Clo{\em j}ure}
 \author{Jean Niklas L'orange}
 \date{16. oktober, 2012}
 
@@ -18,6 +25,61 @@
 
 \begin{frame}
   \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Motivasjon}
+  \framesubtitle{Hvorfor burde man lære seg Clo{\em j}ure?}
+  \begin{itemize}
+    \item<1-> Lett(ere) å lese og forstå kode
+    \item<2-> Designet for programmering med flere tråder
+    \item<3-> Har et REPL - lettere å teste/lære språket
+    \item<4-> Transaksjonsbasert minne
+    \item<5-> Lettere å innføre enn andre språk der du jobber
+    \item<6-> Mer morsomt enn andre språk! \pause (\ldots subjektivt!)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lett(ere) å lese kode}
+
+  Hello world i Java:
+  \vspace{3mm}
+  \begin{javacode}
+public class HelloWorld {
+  public static void main(String[] args){
+    System.out.println("Hello world!");
+  }
+}
+  \end{javacode}
+
+  versus hello world i Clo{\em j}ure*
+  \vspace{3mm}
+  \begin{cljcode}
+(defn -main [& args]
+  (print "Hello world!"))
+  \end{cljcode}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Lett(ere) å forstå kode}
+Enkel kode i Python:
+\vspace{2mm}
+  \begin{pycode}
+x = [0]
+process(x)
+print x
+  \end{pycode}
+
+Hva skriver den ut? \pause Umulig å vite uten å kjenne til {\tt process}. \pause
+\vspace{3mm}
+  \begin{cljcode}
+(def x [0])
+(process x)
+(print x)
+  \end{cljcode}
+
+Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
 \end{frame}
 
 \end{document}
