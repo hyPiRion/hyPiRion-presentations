@@ -19,6 +19,7 @@
 \titlegraphic{\includegraphics[scale=0.75]{img/clj.pdf}}
 \title[Introduksjonskurs til programmeringsspråket Clo{\em j}ure]{Kurs i Clo{\em j}ure}
 \author{Jean Niklas L'orange}
+\institute{\texttt{jeannikl@hypirion.com}}
 \date{16. oktober, 2012}
 
 \begin{document}
@@ -26,6 +27,8 @@
 \begin{frame}
   \titlepage
 \end{frame}
+
+\section{Hva er Clo{\em j}ure?}
 
 \begin{frame}
   \frametitle{Hva er Clo{\em j}ure?}
@@ -46,6 +49,8 @@
   \item<8-> Ikke objektorientert 
   \end{itemize}
 \end{frame}
+
+\section{Motivasjon}
 
 \begin{frame}
   \frametitle{Motivasjon}
@@ -91,7 +96,8 @@ process(x)
 print x
   \end{pycode}
 
-Hva skriver den ut? \pause Umulig å vite uten å kjenne til {\tt process}. \pause
+\pause Hva skriver den ut? \pause Umulig å vite uten å kjenne til {\tt
+  process}. \pause
 \vspace{3mm}
   \begin{cljcode}
 (def x [0])
@@ -119,6 +125,61 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   \item<2-> Kan heller fokusere på problemet programmet skal løse, fremfor at
     programmet deadlocker i ny og ne.
   \end{itemize}
+\end{frame}
+
+\section{Introduksjon og syntaks}
+\subsection{Installasjon og oppsett}
+\begin{frame}
+  \frametitle{Installasjon}
+
+  Hvordan installerer man Clo{\em j}ure på maskinen sin? Veldig lett og rett
+  fram i forhold til andre programmeringsspråk.
+
+  \begin{columns}
+    \begin{column}{0.7\textwidth}
+       \begin{itemize}
+       \item<2-> Leiningen 2.0 er alt du trenger.
+       \item<3-> Kan også installere {\tt clojure1.4} på Linux.
+       \item<4-> Nødløsning: Last ned Clojure fra clojure.org/downloads og kjør
+         \colorbox{solarbg}{\tt java -cp}
+         \colorbox{solarbg}{\tt clojure-1.4.0.jar clojure.main}.
+  \end{itemize}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \uncover<2->{\includegraphics[scale=0.1]{img/leiningen}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Oppsett}
+
+  \uncover<1->{Hovedsaklig to store editorer med god støtte for Clo{\em j}ure:}
+  \begin{columns}[c]
+    \begin{column}{0.4\textwidth}
+      \begin{block}<2->{Emacs med clojure-mode}
+        \centering
+        \includegraphics[height=1cm]{img/emacs}
+        \begin{itemize}
+        \item<3-> Lett å sette opp
+        \item<4-> Lett å mislike oppsettet til emacs
+        \end{itemize}
+      \end{block}
+    \end{column}
+    \begin{column}<5->{0.4\textwidth}
+      \begin{block}{Eclipse med CCW}
+        \centering
+        \includegraphics[height=1cm]{img/eclipse}
+        \begin{itemize}
+        \item<6-> Lett å sette opp
+        \item<7-> Ikke designed for lisp, noe emacs er
+        \end{itemize}
+      \end{block}
+    \end{column}
+  \end{columns}
+  \vspace{3mm}
+  \uncover<8->{Vim fungerer også veldig bra, men har ikke like integrert
+    funksjonalitet.}
 \end{frame}
 
 \end{document}
