@@ -28,6 +28,26 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Hva er Clo{\em j}ure?}
+  \begin{itemize}
+  \item<1-> Dynamisk
+    \begin{itemize}
+      \item<2-> en ny lisp, ikke Scheme eller Common Lisp
+    \end{itemize}
+  \item<3-> Funksjonelt
+    \begin{itemize}
+      \item<4-> med fokus på immutabilitet
+    \end{itemize}
+  \item<5-> Designet for ``flertråding''
+  \item<6-> Kjører på Java VM
+    \begin{itemize}
+      \item<7-> kompilerer ned til Java bytekode
+    \end{itemize}
+  \item<8-> Ikke objektorientert 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Motivasjon}
   \framesubtitle{Hvorfor burde man lære seg Clo{\em j}ure?}
   \begin{itemize}
@@ -80,6 +100,25 @@ Hva skriver den ut? \pause Umulig å vite uten å kjenne til {\tt process}. \pau
   \end{cljcode}
 
 Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
+\end{frame}
+
+\begin{frame}
+  \frametitle{REPL}
+
+  \begin{itemize}
+  \item<1-> Kan raskt teste at små deler av koden fungerer
+  \item<2-> Er du usikker på om det funker, bare test det ut!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Transaksjonsbasert minne}
+
+  \begin{itemize}
+  \item<1-> Unngår låser, semaforer, deadlocks, etc\ldots
+  \item<2-> Kan heller fokusere på problemet programmet skal løse, fremfor at
+    programmet deadlocker i ny og ne.
+  \end{itemize}
 \end{frame}
 
 \end{document}
