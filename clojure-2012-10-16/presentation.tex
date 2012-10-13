@@ -178,8 +178,63 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
     \end{column}
   \end{columns}
   \vspace{3mm}
-  \uncover<8->{Vim fungerer også veldig bra, men har ikke like integrert
-    funksjonalitet.}
+  \uncover<8->{Om du er glad i Vim, prøv ut {\tt evil}-pakken til Emacs! Da kan
+    du bruke pakkene i Emacs, og tasteoppsettet til Vim.}
+\end{frame}
+
+\subsection{Syntaks}
+\begin{frame}
+  \frametitle{Datastrukturer}
+  \begin{center}
+    {\Huge Syntaks:\\ Atomer og datastrukturer}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Atomer}
+\begin{semiverbatim}
+\uncover<1->{Strenger: \textcolor{blue}{"Hello world! :D"}}\uncover<2->{,
+  Characters: \textcolor{blue}{\\J \\Ø \\1}}
+
+
+\uncover<3->{Tall:} \textcolor{blue}{\uncover<4->{42} \uncover<5->{15.23}
+\uncover<6->{1391/1166} \uncover<7->{12345678987654321N}
+\uncover<8->{1.0E-1000M}}
+
+\uncover<9->{Boolske variabler: \textcolor{blue}{true false}}\uncover<10->{,
+  Null: \textcolor{blue}{nil}}
+
+
+\uncover<11->{Regexmønstre: \textcolor{blue}{\#"[A-Za-z0-9\_]+"}}
+
+
+\uncover<12->{Symboler: \textcolor{blue}{foo bar}}\uncover<13->{,
+  Nøkkelord (keywords): \textcolor{blue}{:foo :bar}}
+\end{semiverbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Datastrukturer}
+  Clojure har hovedsaklig fire typer datastrukturer:
+\begin{itemize}
+\item<2-> Lister - Vokser foran:
+\begin{semiverbatim}
+\textcolor{blue}{(a\visible<-7>{\alert<7>{,}} b\visible<-7>{\alert<7>{,}} 5.1\visible<-7>{\alert<7>{,}} d) (hello\visible<-7>{\alert<7>{,}} world)}
+\end{semiverbatim}
+\item<3-> Vektorer - Vokser bak:
+\begin{semiverbatim}
+\textcolor{blue}{[42\visible<-7>{\alert<7>{,}} 3.14\visible<-7>{\alert<7>{,}} 1.3e20] [:foo\visible<-7>{\alert<7>{,}} :bar]}
+\end{semiverbatim}
+\item<4-> Maps - Samme som (Hash)Map i Java, dictionary i Python:
+\begin{semiverbatim}
+\textcolor{blue}{\{:tid "18:15"\visible<-7>{\alert<7>{,}} :sted "F1, NTNU"\} \{:foo 42\visible<-7>{\alert<7>{,}} 20 "acb"\}}
+\end{semiverbatim}
+\item<5-> Sett - Samme som (Hash)Set i Java, set i Python:
+\begin{semiverbatim}
+\textcolor{blue}{#\{1\visible<-7>{\alert<7>{,}} 2\visible<-7>{\alert<7>{,}} :foo\} \{"Eirik"\visible<-7>{\alert<7>{,}} "Fredrik"\visible<-7>{\alert<7>{,}} "Tina"\visible<-7>{\alert<7>{,}} :unknown\}}
+\end{semiverbatim}
+\end{itemize}
+\uncover<6->{Alle datastrukturene kan nøstes, og er immutable!}\uncover<8>{}
 \end{frame}
 
 \end{document}
