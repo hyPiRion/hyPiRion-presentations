@@ -133,7 +133,7 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   \frametitle{Installasjon}
 
   Hvordan installerer man Clo{\em j}ure på maskinen sin? Veldig lett og rett
-  fram i forhold til andre programmeringsspråk.
+  fram:
 
   \begin{columns}
     \begin{column}{0.7\textwidth}
@@ -231,10 +231,155 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
 \end{semiverbatim}
 \item<5-> Sett - Samme som (Hash)Set i Java, set i Python:
 \begin{semiverbatim}
-\textcolor{blue}{#\{1\visible<-7>{\alert<7>{,}} 2\visible<-7>{\alert<7>{,}} :foo\} \{"Eirik"\visible<-7>{\alert<7>{,}} "Fredrik"\visible<-7>{\alert<7>{,}} "Tina"\visible<-7>{\alert<7>{,}} :unknown\}}
+\textcolor{blue}{#\{1\visible<-7>{\alert<7>{,}} 2\visible<-7>{\alert<7>{,}} :foo\} #\{"Eirik"\visible<-7>{\alert<7>{,}} "Fredrik"\visible<-7>{\alert<7>{,}} "Tina"\visible<-7>{\alert<7>{,}} :unknown\}}
 \end{semiverbatim}
 \end{itemize}
 \uncover<6->{Alle datastrukturene kan nøstes, og er immutable!}\uncover<8>{}
 \end{frame}
+
+\begin{frame}
+  \frametitle{Syntaks}
+  Gratulerer! Nå har dere lært all syntaks som trengs for å kunne Clojure.
+  \begin{itemize}
+    \item<2-> Datastrukturene {\em er} koden og syntaksen i Clojure.
+    \item<3-> Funksjonskall, operasjoner, kontrollstruktur (if, switch etc.) og
+      definisjoner er bare lister med navnet på operasjonen først i listen.
+    \item<4-> Alt er et uttrykk: Det vil si at alt returnerer en verdi.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile, t]
+  \frametitle{Python vs. Clojure}
+  \begin{columns}[T]
+    \begin{column}<1->{0.5\textwidth}
+      Python
+      \begin{overprint} % TODO: Make an alias for this. This is horrible.
+        \onslide<2->
+        \begin{pycode*}{gobble=10}
+          x = 5
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<3->
+        \begin{pycode*}{gobble=10}
+          x * (a + b + c)
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint} % TODO: Make an alias for this. This is horrible.
+        \onslide<4->
+        \begin{pycode*}{gobble=10}
+          range(1, 11, 2)
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<5->
+        \begin{pycode*}{gobble=10}
+          file.close()
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<6->
+        \begin{pycode*}{gobble=10}
+          def foo(a,b):
+              return a + b
+        \end{pycode*}
+      \end{overprint}
+    \end{column}
+
+    \begin{column}<1->{0.5\textwidth}
+      Clojure
+      \begin{overprint}
+        \onslide<2->
+        \begin{cljcode*}{gobble=10}
+          (def x 5)
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<3->
+        \begin{cljcode*}{gobble=10}
+          (* x (+ a b c))
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<4->
+        \begin{cljcode*}{gobble=10}
+          (range 1 11 2)
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<5->
+        \begin{cljcode*}{gobble=10}
+          (.close file)
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<6->
+        \begin{cljcode*}{gobble=10}
+          (defn foo [a b]
+            (+ a b))
+        \end{cljcode*}
+      \end{overprint}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[fragile, t]
+  \frametitle{Python vs. Clojure}
+  \begin{columns}[T]
+    \begin{column}<1->{0.5\textwidth}
+      Python
+      \begin{overprint}
+        \onslide<2->
+        \begin{pycode*}{gobble=10}
+          for x in xs:
+              print x
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<3->
+        \begin{pycode*}{gobble=10}
+          [x for x in xs
+                   if x % 2 == 0]
+        \end{pycode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<4->
+        \begin{pycode*}{gobble=10}
+          if x == 0:
+              return y
+          else:
+              return z
+        \end{pycode*}
+      \end{overprint}
+    \end{column}
+
+    \begin{column}<1->{0.5\textwidth}
+      Clojure
+      \begin{overprint}
+        \onslide<2->
+        \begin{cljcode*}{gobble=10}
+          (doseq [x xs]
+            (println x))
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<3->
+        \begin{cljcode*}{gobble=10}
+          (for [x xs
+                :when (even? x)] x)
+        \end{cljcode*}
+      \end{overprint}
+      \begin{overprint}
+        \onslide<4->
+        \begin{cljcode*}{gobble=10}
+          (if (== x 0)
+            y
+            z)
+        \end{cljcode*}
+      \end{overprint}
+    \end{column}
+  \end{columns}
+\end{frame}
+
 
 \end{document}
