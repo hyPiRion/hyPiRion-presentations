@@ -242,8 +242,9 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   Gratulerer! Nå har dere lært all syntaks som trengs for å kunne Clojure.
   \begin{itemize}
     \item<2-> Datastrukturene {\em er} koden og syntaksen i Clojure.
-    \item<3-> Funksjonskall, operasjoner, kontrollstruktur (if, switch etc.) og
-      definisjoner er bare lister med navnet på operasjonen først i listen.
+    \item<3-> Funksjonskall, operasjoner, kontrollstruktur ({\tt if}, {\tt defn}
+      etc.) og definisjoner er bare lister med navnet på operasjonen først i
+      listen.
     \item<4-> Alt er et uttrykk: Det vil si at alt returnerer en verdi.
   \end{itemize}
 \end{frame}
@@ -381,5 +382,61 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   \end{columns}
 \end{frame}
 
+\begin{frame}[fragile, t]
+  \frametitle{Eksempel på evaluering}
+  La oss se litt på hvordan Clojure utfører funksjonskall:
+  \begin{overprint}
+    \onslide<1-5>
+    \begin{semiverbatim}
+      \alert<2>{(\alert<3>{*} \alert<4>{3} \alert<5>{(+ 2 3)} (/ 3 18))}
+    \end{semiverbatim}
+    \begin{itemize}
+    \item<2-> Vi starter med en parentes, så vi vet at dette er et
+      funksjonskall.
+    \item<3-> Vi ser at {\tt *} er et symbol, så vi prøver å lese hva den peker
+      på. Den peker på multiplikasjonsfunksjonen.
+    \item<4-> {\tt 3} er bare et heltall, så Clojure evaluerer og returnerer
+      dette.
+    \item<5-> Vi starter her med en parentes, så vi ser at vi må gjøre et
+      funksjonskall.
+    \end{itemize}
+    \onslide<6-9>
+    \begin{semiverbatim}
+      (* 3 (\alert<6>{+} \alert<7>{2} \alert<8>{3}\alert<9>{)} (/ 3 18))
+    \end{semiverbatim}
+    \begin{itemize}
+    \item<6-> {\tt +} er et symbol, og peker på addisjonsfunksjonen.
+    \item<7-> {\tt 2} er et heltall, så vi returnerer det. \uncover<8->{Samme
+      gjelder for {\tt 3}.}
+    \item<9-> Vi har kommet til slutten av listen, så vi kaller {\tt +} med
+      argumentene {\tt 2} og {\tt 3}, og får tilbake {\tt 5}.
+    \end{itemize}
+    \onslide<10-14>
+    \begin{semiverbatim}
+      (* 3 \alert<10>{5} \alert<11>{(\alert<12>{/} \alert<13>{3 18}\alert<14>{)}})
+    \end{semiverbatim}
+    \begin{itemize}
+    \item<11-> Ny parentes, så nytt funksjonskall.
+    \item<12-> {\tt /} er et symbol, og peker på divisjonsfunksjonen.
+    \item<13-> {\tt 3} og {\tt 18} er heltall, så vi returnerer dem som vi har
+      gjort tidligere
+    \item<14-> Vi har kommet til slutten av listen, og kaller {\tt /} med
+      argumentene {\tt 3} og {\tt 18}, og får tilbake {\tt 1/6}.
+    \end{itemize}
+    \onslide<15->
+    \begin{semiverbatim}
+      \only<15-16>{(* 3 5 \alert<15>{1/6}\alert<16>{)}}
+      \only<17->{5/2}
+    \end{semiverbatim}
+    \begin{itemize}
+    \item<16-> Vi har kommet til slutten av listen, så vi kaller {\tt *} med
+      argumentene {\tt 3}, {\tt 5} og {\tt 1/6}. Vi får tilbake {\tt 5/2}.
+    \item<17-> Vi er ferdige, og returnerer {\tt 5/2}.
+    \end{itemize}
+  \end{overprint}
+
+  \uncover<18->{NB: Dette gjelder ikke for ``funksjoner'' som f.eks. {\tt if},
+    {\tt def(n)} eller andre spesialoperasjoner.}
+\end{frame}
 
 \end{document}
