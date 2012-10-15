@@ -28,10 +28,10 @@
   \titlepage
 \end{frame}
 
-\section{Hva er Clo{\em j}ure?}
+\section{Hva er Clojure?}
 
 \begin{frame}
-  \frametitle{Hva er Clo{\em j}ure?}
+  \frametitle{Hva er Clojure?}
   \begin{itemize}
   \item<1-> Dynamisk
     \begin{itemize}
@@ -54,14 +54,14 @@
 
 \begin{frame}
   \frametitle{Motivasjon}
-  \framesubtitle{Hvorfor burde man lære seg Clo{\em j}ure?}
+  \framesubtitle{Hvorfor burde man lære seg Clojure?}
   \begin{itemize}
     \item<1-> Lett(ere) å lese og forstå kode
     \item<2-> Designet for programmering med flere tråder
     \item<3-> Har et REPL - lettere å teste/lære språket
     \item<4-> Transaksjonsbasert minne
     \item<5-> Lettere å innføre enn andre språk der du jobber
-    \item<6-> Mer morsomt enn andre språk! \pause (\ldots subjektivt!)
+    \item<6-> Mer morsomt enn andre språk! (Forhåpentligvis)
   \end{itemize}
 \end{frame}
 
@@ -78,7 +78,7 @@ public class HelloWorld {
 }
   \end{javacode}
 
-  versus hello world i Clo{\em j}ure*
+  versus hello world i Clojure*
   \vspace{3mm}
   \begin{cljcode}
 (defn -main [& args]
@@ -132,7 +132,7 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
 \begin{frame}
   \frametitle{Installasjon}
 
-  Hvordan installerer man Clo{\em j}ure på maskinen sin? Veldig lett og rett
+  Hvordan installerer man Clojure på maskinen sin? Veldig lett og rett
   fram:
 
   \begin{columns}
@@ -154,7 +154,7 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
 \begin{frame}
   \frametitle{Oppsett}
 
-  \uncover<1->{Hovedsaklig to store editorer med god støtte for Clo{\em j}ure:}
+  \uncover<1->{Hovedsaklig to store editorer med god støtte for Clojure:}
   \begin{columns}[c]
     \begin{column}{0.4\textwidth}
       \begin{block}<2->{Emacs med clojure-mode}
@@ -449,58 +449,231 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   og nettopp deg har fått oppdrag med å oversette kode fra Python til Clojure.
 \end{frame}
 
-\begin{frame}
+\subsection{Lett introduksjon til rekursjon}
+\begin{frame}[fragile]
   \frametitle{Fibonacci}
 
-  Vårt første oppdrag er å oversette en Fibonacci-generator fra Python til
+  Vårt første oppdrag er å oversette en {\em fibonacci}-funksjon fra Python til
   Clojure.
+
+  \vspace{3mm}
+  \uncover<2->{Vi bruker $F_0 = 0$, $F_1 = 1$ og ellers $F_n = F_{n-2} +
+    F_{n-1}$}
+  \vspace{3mm}
+  \onslide<3->
+  \begin{pycode*}{gobble=4}
+    def fib(n):
+        if n <= 1:
+            return n
+        else:
+            return fib(n-2) + fib(n-1)
+  \end{pycode*}
 \end{frame}
 
-\begin{frame}
+\subsection{Halerekursjon og løkker}
+\begin{frame}[fragile]
   \frametitle{Fakultet}
 
-  Vårt andre oppdrag er å oversette Fakultet (!) til Clojure. Alyssa er
+  Vårt andre oppdrag er å oversette {\em fakultet} til Clojure. (Alyssa er ikke
+  helt trygg på at vi er gode nok i Clojure til å sette oss på større oppgaver,
+  så vi får de enkle oppgavene først.)
+
+  \vspace{3mm}
+  \uncover<2->{Som vi husker, så er $0! = 1$ og $n! = n\times (n-1)!$.}
+  \vspace{3mm}
+  \onslide<3->
+  \begin{pycode*}{gobble=4}
+    def fac(n):
+        res = 1
+        for i in range(2, n+1):
+            res *= i
+        return res
+  \end{pycode*}
+  \vspace{2mm}
+
+  \onslide<4->
+  \ldots siden vi ikke har mutabilitet i Clojure, hvordan får vi til dette?
 \end{frame}
 
-\begin{frame}
+\subsection{Høyere ordens funksjoner}
+\begin{frame}[fragile, t]
   \frametitle{Summering}
 
   Alyssa er litt frustrert over at det ikke er noen {\tt sum}-funksjon i {\tt
     clojure.core}, så vi har vært såpass heldige at vi har fått ansvaret å lage
-  en versjon for Clojure.
+  en versjon for Clojure. Siden hun ser at vi ikke har brukt funksjoner som
+  verdier, håper hun at vi lærer det nå.
+
+  \vspace{3mm}
+  \onslide<2->
+  \begin{pycode*}{gobble=4}
+    sum(lst)
+  \end{pycode*}
+
+  \vspace{3mm}
+  \onslide<3->
+  Men hva mener hun med funksjoner som verdier?
 \end{frame}
 
+\begin{frame}[fragile, t]
+  \frametitle{Høyere ordens funksjoner}
+
+  Høyere ordens funksjoner:
+  \begin{itemize}
+  \item<2-> Du kan sende funksjoner som argumenter:
+    \begin{cljcode*}{gobble=6}
+      (defn foo [f a b]
+        (f a b))
+      (foo + 3 5) ; => 8
+    \end{cljcode*}
+  \item<3-> Dette gir oss høyere abstraksjonsnivå. {\tt map, filter, reduce,
+    apply,} mm. er funksjoner som gjør ting mer lettleselig.
+  \item<4-> Vi ønsker å bruke {\tt reduce} for å summere en liste.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile, t]
+  \frametitle{Reduksjon}
+
+  {\tt reduce} tar inn to/tre argumenter: En funksjon, en (valgfri) init-verdi,
+  og en liste.
+
+  \vspace{3mm}
+  \onslide<2>
+  \begin{cljcode*}{gobble=4}
+    (reduce f init [a b c d])
+    (f (f (f (f init a) b) c) d)
+
+    (reduce f [a b c])
+    (f (f a b) c)
+
+    (reduce f [])
+    (f)
+
+    (reduce f init [])
+    init
+  \end{cljcode*}
+\end{frame}
+
+\subsection{{\tt map} og {\tt remove}}
 \begin{frame}
   \frametitle{Listeprosessering}
 
-  % TODO
+  Alyssa ser nå at vi har lært om høyere ordens funksjoner, og har lyst til å
+  terpe litt mer på hvordan de fungerer. Så vi får beskjed om å lage en funksjon
+  som tar inn en liste med tall og kvadrerer alle tallene. Hun vil også at vi
+  skal lage en funksjon som tar inn en liste med tall og fjerner tallene 1, 3 og
+  5.
+
+  \vspace{3mm}
+  \pause Hun nevner noe om at {\tt map} og {\tt remove} kan være smart å bruke
+  her.
 \end{frame}
 
+\subsection{Mutasjon og transaksjoner}
 \begin{frame}
   \frametitle{Transaksjonshåndtering}
 
   Alyssa er fornøyd med fremgangen våres, så hun har lyst til å virkelig få oss
   til å tenke. Deadlocks og mutexer har gjort banksystemet uhåndterlig, så vi
   har fått ansvaret med å gjøre ting litt mer håndterlig uten å miste den
-  funksjonaliteten vi allerede har.
+  funksjonaliteten vi allerede har: Vi skal implementere en banktransaksjon fra
+  en konto til en annen.
+
+  \vspace{3mm}
+  \pause For å kunne mutere i Clojure må vi vite hvordan vi gjør det, så la oss
+  se litt på det.
 \end{frame}
 
+\begin{frame}[fragile]
+  \frametitle{Mutasjon i Clojure}
+
+  Flere forskjellige måter å få til mutasjon i Clojure, vi trenger bare
+  {\tt ref}.
+  \pause {\tt ref} er en referanse til et objekt, kan leses med {\tt @}, og
+  endres med {\tt ref-set} og {\tt alter}.
+  \vspace{3mm}
+  \onslide<3->
+  \begin{cljcode*}{gobble=4}
+    (def x (ref 10))
+    @x ; => 10 (nb! Helst inne i dosync)
+    (ref-set x 11) ; Feilmelding
+    (dosync (ref-set x 11)) ; ok, x = 11 => 11
+    (dosync (alter x + 5)) ; x = x + 5 => 16
+  \end{cljcode*}
+
+  \vspace{3mm}
+  \uncover<4->{Hvorfor så ``tungvint''? }
+  \uncover<5->{Lettere å holde tunga rett i munnen ved hjelp av transaksjoner.}
+\end{frame}
+
+\subsection{Prosjektgenerasjon og biblioteksbruk}
 \begin{frame}
   \frametitle{Prosjekthåndtering}
 
   Alyssa har nå blitt litt frustrert over at vi får gjort jobben så fort, så hun
   har lyst til å gi oss en liten hjernetrim. Vi har fått i oppdrag å gjøre
   Problem 24 i Project Euler, og i tillegg har vi fått beskjed om at vi skal
-  lage det som et program som hun kan vise på både Windows, Mac og Linux uten å
-  kompilere det.
+  lage det som et program som hun kan vise på både Windows, Mac og Linux som en
+  {\tt .jar}-fil.
 
+  \vspace{3mm}
+  \pause
   Uheldigvis for Alyssa, så vet hun ikke at det eksisterer et bibliotek som gjør
   saken biff for oss. I tillegg gjør også Leiningen det å lage jar-filer veldig
   lett.
 \end{frame}
 
-\section{Veien videre}
+\begin{frame}[fragile]
+  \frametitle{Prosjekthåndtering og bibliotekbruk}
 
+  Enkelt å lage et nytt prosjekt med Leiningen:
+   \begin{overprint}
+     \onslide<2->
+     \begin{minted}[frame=single,bgcolor=solarbg,gobble=6]{bash}
+       lein new app appnavn
+     \end{minted}
+   \end{overprint}
+   \vspace{3mm}
+
+
+   \uncover<3->{Også enkelt å legge til biblioteker.}
+   \uncover<4->{I {\tt project.clj}, endre dependencies til følgende:}
+   \begin{overprint}
+     \onslide<4->
+     \begin{cljcode*}{gobble=6}
+       ; ...
+       :dependencies [[org.clojure/clojure "1.4.0"]
+                [org.clojure/math.combinatorics "0.0.3"]]
+       ; ...
+     \end{cljcode*}
+   \end{overprint}
+   \vspace{3mm}
+\end{frame}
+
+\section{Veien videre}
+\subsection{Ekstra snadder}
+\begin{frame}
+  \frametitle{Ting som ikke har blitt nevnt}
+
+  Clojure og Lisp har generelt mange ting som ikke eksisterer i andre
+  programmeringsspråk.
+  \begin{itemize}
+  \item Uendelige lister
+  \item Makroer
+  \item Multimetoder
+  \item Protokoller
+  \item Records
+  \item Java Interop
+  \item Dynamisk skoping
+  \item +++
+  \end{itemize}
+
+  Jeg har bare gitt dere ``inngangsdopet'' til Clojure - utrolig mye kraftig som
+  gjør ting kort og lettleselig.
+\end{frame}
+
+\subsection{Flere oppgaver}
 \begin{frame}
   \frametitle{Hvor skal jeg fortsette?}
   Hvor fortsetter man for å bli bedre i Clojure? Noen forslag:
@@ -516,6 +689,7 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   \end{itemize}
 \end{frame}
 
+\subsection{Bøker}
 \begin{frame}
   \frametitle{Bøker}
   Anbefalte bøker:
@@ -538,9 +712,28 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
 \uncover<4->{Begge finnes på Amazon.}
 \end{frame}
 
+\subsection{HTML5 og Web}
+\begin{frame}
+  \frametitle{Webutvikling}
+
+  Web er hipt og kult. Hvordan starter jeg med å lage en web-applikasjon i
+  Clojure?
+
+  \begin{itemize}
+  \item<2-> \includegraphics[height=1cm]{img/noir} -
+    \url{http://www.webnoir.org}
+  \item<3-> \includegraphics[height=1cm]{img/korma} -
+    \url{http://www.sqlkorma.com}
+  \end{itemize}
+
+  \vspace{3mm}
+  \uncover<4->{Er lett å bruke for de med Python-bakgrunn.}
+\end{frame}
+
+\subsection{Miljø}
 \begin{frame}
   \frametitle{Miljøet}
-  Clojure-communitiet er veldig åpent og hyggelig
+  Clojuremiljøet er veldig åpent og hyggelig
 
   \begin{itemize}
   \item<2-> IRC: {\tt \#clojure} på Freenode
@@ -551,5 +744,21 @@ Hva skriver denne ut? \pause Skriver alltid ut {\tt [0]}!
   \end{itemize}
 \end{frame}
 
+\section{Avslutning}
+\subsection{Spørsmål}
+\begin{frame}
+  \frametitle{Spørsmål}
+  \begin{center}
+    {\Huge Noen spørsmål?}
+  \end{center}
+\end{frame}
+
+\subsection{Finish}
+\begin{frame}
+  \frametitle{Takk for meg}
+  \begin{center}
+    {\Huge Takk for oppmerksomheten!}
+  \end{center}
+\end{frame}
 
 \end{document}

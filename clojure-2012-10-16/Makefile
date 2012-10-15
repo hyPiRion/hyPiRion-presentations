@@ -1,5 +1,5 @@
 PRESENTATION = presentation
-TEMPS = aux log nav out snm toc vrb
+TEMPS = aux log nav out snm toc vrb pyg
 
 .PHONY: clean remake purge
 
