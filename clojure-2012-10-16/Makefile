@@ -6,13 +6,15 @@ TEMPS = aux log nav out snm toc vrb pyg
 all: $(PRESENTATION).pdf
 
 %.pdf:
-	pdflatex -shell-escape $(@:.pdf=.tex)
-	pdflatex -shell-escape $(@:.pdf=.tex)
+	pdflatex -shell-escape $*.tex
+	pdflatex -shell-escape $*.tex
 
 clean:
 	for s in $(TEMPS); do rm -f $(PRESENTATION).$$s; done
 
 purge: clean
-	rm -f $(PRESENTATION).pdf
+	-rm -f $(PRESENTATION).pdf
 
-remake: | purge all
+remake:
+	-rm -f $(PRESENTATION).pdf
+	$(MAKE) all
