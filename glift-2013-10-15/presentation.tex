@@ -11,7 +11,6 @@
 \usetheme{Antibes}
 \usecolortheme[named=Bittersweet]{structure}
 
-%\titlegraphic{\includegraphics[scale=0.75]{img/clj.pdf}}
 \title[Glift: Generic, Efficient, Random-Access GPU Data Structures]%
       {Glift:\\ Generic, Efficient, Random-Access GPU Data Structures}
 \author{Jean Niklas L'orange}
@@ -22,6 +21,19 @@
 
 \begin{frame}
   \titlepage
+\end{frame}
+
+\section{What and why?}
+\begin{frame}
+  \frametitle{What is this paper about? What is Glift?}
+
+  This paper is about a data-parallel programming abstraction. The abstraction
+  enables GPU programmers to write high-level, efficient random-access GPU data
+  structures, without sacrificing performance.
+
+  \vfill \pause
+
+  Glift is an implementation of that abstraction, using C++ and Cg.
 \end{frame}
 
 \end{document}
