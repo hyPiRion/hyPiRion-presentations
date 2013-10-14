@@ -1,0 +1,11 @@
+*~
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.pyg
+*.fdb_latexmk
+presentation.pdf
