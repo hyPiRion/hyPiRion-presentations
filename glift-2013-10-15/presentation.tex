@@ -135,4 +135,39 @@
     are challenging to port.}
 \end{frame}
 
+\section{Case Studies}
+\begin{frame}[fragile]
+  \frametitle{Case Studies}
+
+  \only<1,3->{\vspace{15mm}
+    We've already seen one! \vspace{3mm}
+
+    \uncover<3->{Also describes a GPU stack. While simple, is useful for e.g.
+      $k$-d tree traversal.\vspace{3mm}}
+
+    \uncover<4->{Covers the implementation details of dynamic multiresolution
+      adaptive data structures for real time usage, and implements adaptive
+      shadow maps as a case.}}
+  \begin{overprint}
+    \vspace{-5mm}
+    \onslide<2>
+    \begin{ccode*}{gobble=6}
+      #include <gliftCg.h>
+
+      float4 main( NeighborIter it ) : COLOR
+      {
+        // Finite difference discrete Laplacian
+        float4 offset( 1, 0, 0, 0 );
+        float4 laplace = -8 * it.value( 0 );
+        for ( float i = 0; i < 4; ++i ) {
+          laplace += it.value( offset );
+          laplace += it.value( -offset );
+          offset = offset.yzwx;
+        }
+        return laplace;
+      }
+    \end{ccode*}
+  \end{overprint}
+\end{frame}
+
 \end{document}
