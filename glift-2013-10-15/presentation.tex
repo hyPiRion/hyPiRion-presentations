@@ -46,7 +46,7 @@
   \item<3-> Classification of existing GPU data structures based on the
     abstraction
   \item<4-> Case studies
-  \item<5-> Results, conclusions
+  \item<5-> Results, discussion, conclusions
     \only<-5>{\item<6->}
   \end{itemize}
 \end{frame}
@@ -170,12 +170,25 @@
   \end{overprint}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Adaptive Shadow Map}
+
+  \begin{itemize}
+  \item<2-> Is a \emph{container adaptor} built on top of a 1-level page table
+    structure.
+  \item<3-> Handles multiple resolutions in one page table, hanging nodes, and
+    other issues which may come up in multiresolution representations.
+  \item<4-> Claims to be the first full-based GPU implementation of the ASM
+    structure.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[t]
   \frametitle{Adaptive Shadow Map}
   \begin{center}
     \includegraphics[height=5cm]{img/asm} \\
-    Up right: ASM with $131,072^2$ resolution. \\
-    Down right: SM with $2048^2$ resolution.
+    Up right: ASM with a resolution of $131,072^2$. \\
+    Down right: SM with a resolution of $2048^2$.
   \end{center}
 \end{frame}
 
