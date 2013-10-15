@@ -173,7 +173,24 @@
 \begin{frame}[t]
   \frametitle{Adaptive Shadow Map}
   \begin{center}
-    \includegraphics[height=5cm]{img/asm}
+    \includegraphics[height=5cm]{img/asm} \\
+    Up right: ASM with $131,072^2$ resolution. \\
+    Down right: SM with $2048^2$ resolution.
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adaptive Shadow Map -- Performance}
+  \begin{center}
+    \begin{tabular}{c c c c c}
+      PageSize & FPS & ASM L & ASM LMN & ASM LML \\\hline
+      $8^2$ & 13.7 & 91\% & 77\% & 74\% \\
+      $16^2$ & 15.6 & 90\% & 76\% & 73\% \\
+      $32^2$ & 12.1 & 89\% & 75\% & 73\% \\
+      $64^2$ & 12.9 & 89\% & 74\% & 73\% \\
+    \end{tabular} \vspace{9mm}
+
+    Performance relative to the SM with a resolution of $2048^2$.
   \end{center}
 \end{frame}
 
