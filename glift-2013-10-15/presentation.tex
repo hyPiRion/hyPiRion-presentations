@@ -170,6 +170,7 @@
   \end{overprint}
 \end{frame}
 
+\subsection{Adaptive Shadow Map}
 \begin{frame}
   \frametitle{Adaptive Shadow Map}
 
@@ -184,7 +185,7 @@
 \end{frame}
 
 \begin{frame}[t]
-  \frametitle{Adaptive Shadow Map}
+  \frametitle{Adaptive Shadow Map -- Visualization}
   \begin{center}
     \includegraphics[height=5cm]{img/asm} \\
     Up right: ASM with a resolution of $131,072^2$. \\
@@ -205,6 +206,34 @@
 
     Performance relative to the SM with a resolution of $2048^2$.
   \end{center}
+\end{frame}
+
+\section{Results, conclusion, discussion}
+\subsection{Results}
+\begin{frame}
+  \frametitle{Performance results}
+  \begin{tabular}{l c c}
+    Method & Cg ops & HW ops \\\hline
+    \emph{Stream 1D→2D} &&\\
+    ~~Glift, no specialization & 8 & 5 \\
+    ~~Glift, with specialization & 5 & 4 \\
+    ~~Hardcoded Cg & 4 & 3\\
+    \emph{1D sparse, uniform 3D→3D page table} &&\\
+    ~~Glift, no specialization & 11 & 8 \\
+    ~~Glift, with specialization & 7 & 5 \\
+    ~~Hardcoded Cg & 6 & 5\\
+    \emph{Adaptive shadow map + offset} &&\\
+    ~~Glift, no specialization & 31 & 10 \\
+    ~~Glift, with specialization & 27 & 10 \\
+    ~~Hardcoded Cg & 16 & 9\\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Results}
+
+  Little to no performance penalty.\pause However, driver optimization is highly
+  used. May cause performance problems if your code is hard to optimize.
 \end{frame}
 
 \end{document}
