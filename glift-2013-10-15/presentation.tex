@@ -87,6 +87,19 @@
   \includegraphics[width=\linewidth]{img/addr-translator}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Iterators}
+
+  The last component of Glift is iterators. Based on C++'s iterator, they
+  designed GPU iterators for parallel work. There are two types of iterators:
+  \begin{itemize}
+  \item<2-> Element Iterators -- for iterating over the elements in the
+    structure
+  \item<3-> Address Iterators -- enables address translators to specify
+    iteration without having knowledge of physical data
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[fragile, t]
   \frametitle{Iterators -- example}
   \begin{ccode*}{gobble=4}
