@@ -5,7 +5,7 @@
 \definecolor{solarbg}{HTML}{FDF6E3}
 
 \usepackage{minted}
-\newminted{c}{bgcolor=solarbg,frame=single}
+\newminted{c}{frame=single}
 \usemintedstyle{solarized}
 
 \usetheme{Antibes}
@@ -85,6 +85,27 @@
 \begin{frame}
   \frametitle{Virtual memory → Address translator → Physical memory}
   \includegraphics[width=\linewidth]{img/addr-translator}
+\end{frame}
+
+\begin{frame}[fragile, t]
+  \frametitle{Iterators -- example}
+  \begin{ccode*}{gobble=4}
+    #include <gliftCg.h>
+
+    float4 main( NeighborIter it ) : COLOR
+    {
+      // Finite difference discrete Laplacian
+      float4 offset( 1, 0, 0, 0 );
+      float4 laplace = -8 * it.value( 0 );
+      for ( float i = 0; i < 4; ++i ) {
+        laplace += it.value( offset );
+        laplace += it.value( -offset );
+        offset = offset.yzwx;
+      }
+      return laplace;
+    }
+
+  \end{ccode*}
 \end{frame}
 
 \end{document}
