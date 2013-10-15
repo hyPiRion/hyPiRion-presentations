@@ -100,7 +100,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile, t]
+\begin{frame}[fragile]
   \frametitle{Iterators -- example}
   \begin{ccode*}{gobble=4}
     #include <gliftCg.h>
@@ -117,8 +117,22 @@
       }
       return laplace;
     }
-
   \end{ccode*}
+\end{frame}
+
+\section{Classification of GPU data structures}
+\begin{frame}
+  \frametitle{Classification of GPU data structures}
+
+  The authors classify different data structures in terms of Glift concepts.
+  \begin{itemize}
+  \item<2-> ND-to-MD translators -- done analytically
+  \item<3-> Page Table translators -- using the page tables on the GPU
+  \item<4-> GPU tree structures -- $k$-d trees, quadtrees, octrees\ldots
+  \item<5-> Dynamic GPU structures -- usually adaptive and sparse
+  \end{itemize}
+  \onslide<6->{Usually easy to create different structures with Glift, but some
+    are challenging to port.}
 \end{frame}
 
 \end{document}
