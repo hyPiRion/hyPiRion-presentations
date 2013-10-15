@@ -47,7 +47,7 @@
     abstraction
   \item<4-> Case studies
   \item<5-> Results, discussion, conclusions
-    \only<-5>{\item<6->}
+    \mode<beamer|second|trans|article>{\only<-5>{\item<6->}}
   \end{itemize}
 \end{frame}
 
@@ -102,22 +102,7 @@
 
 \begin{frame}[fragile]
   \frametitle{Iterators -- example}
-  \begin{ccode*}{gobble=4}
-    #include <gliftCg.h>
-
-    float4 main( NeighborIter it ) : COLOR
-    {
-      // Finite difference discrete Laplacian
-      float4 offset( 1, 0, 0, 0 );
-      float4 laplace = -8 * it.value( 0 );
-      for ( float i = 0; i < 4; ++i ) {
-        laplace += it.value( offset );
-        laplace += it.value( -offset );
-        offset = offset.yzwx;
-      }
-      return laplace;
-    }
-  \end{ccode*}
+  \inputminted[frame=single]{c}{code/laplace.c}
 \end{frame}
 
 \section{Classification of GPU data structures}
@@ -148,26 +133,14 @@
     \uncover<4->{Covers the implementation details of dynamic multiresolution
       adaptive data structures for real time usage, and implements both adaptive
       shadow maps and octree 3D paint as cases.}}
-  \begin{overprint}
-    \vspace{-5mm}
-    \onslide<2>
-    \begin{ccode*}{gobble=6}
-      #include <gliftCg.h>
 
-      float4 main( NeighborIter it ) : COLOR
-      {
-        // Finite difference discrete Laplacian
-        float4 offset( 1, 0, 0, 0 );
-        float4 laplace = -8 * it.value( 0 );
-        for ( float i = 0; i < 4; ++i ) {
-          laplace += it.value( offset );
-          laplace += it.value( -offset );
-          offset = offset.yzwx;
-        }
-        return laplace;
-      }
-    \end{ccode*}
-  \end{overprint}
+  \mode<beamer|second|trans|article>{
+    \begin{overprint}
+      \vspace{-5mm}
+      \onslide<2>
+      \inputminted[frame=single]{c}{code/laplace.c}
+    \end{overprint}
+  }
 \end{frame}
 
 \subsection{Adaptive Shadow Map}
