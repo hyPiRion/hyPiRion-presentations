@@ -1,0 +1,128 @@
+/* Org-HTML-Slideshow projection styles.
+ *
+ * These styles will apply only to the slide-show view.
+ */
+
+body {
+   margin: 0pt;
+   font-size: 24pt;
+   background-color: #3F3F3F;
+   color: #fff;
+}
+
+/* Use all headings as slide titles, regardless of level. */
+h1,h2,h3,h4,h5,h6,h7,h8 {
+   font-size: 48pt;
+   margin: 18pt;
+   text-align: center;
+}
+
+a {
+    color: #D0BF8F;
+}
+
+li {
+   margin: 12pt;
+}
+
+/* Center embedded images. */
+p.image {
+   text-align: center;
+}
+
+/* Hide Org-Mode tags in slide-show view. */
+span.tag {
+   display: none;
+}
+
+/* Hide Org-Mode section numbers in slide-show view. */
+span.section-number-1,span.section-number-2,span.section-number-3,span.section-number-4,span.section-number-5,span.section-number-6,span.section-number-7,span.section-number-8 {
+   display: none;
+}
+
+.blue_background {
+   background: blue;
+   color: white;
+}
+
+
+#footer {
+  float: left;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #005572; /* #02779E; */
+  color: #fff;
+  line-height: 2em;
+  font-size: 0.8em;
+  text-align: right;
+}
+
+#footer .name {
+  float: left;
+}
+
+#footer .name, #footer .talk {
+  padding: 0 18pt;
+}
+
+#current-slide {
+  margin: 18pt;
+}
+
+table {
+  margin: 0 auto;
+}
+
+.slide .outline-text {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.slide.wide .outline-text {
+  width: 98%;
+}
+
+pre {
+    padding: 0.5em;
+    line-height: 1.4em;
+    white-space: pre-wrap;
+    border: 1px white solid;
+    font-family: Inconsolata;
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local("Inconsolata"), url("http://themes.googleusercontent.com/static/fonts/inconsolata/v3/BjAYBlHtW3CJxDcjzrnZCIbN6UDyHWBl620a-IRfuBk.woff") format("woff");
+}
+
+.slide.bigcode pre {
+  font-size: 200%;
+}
+
+.slide.littlecode pre {
+  font-size: 75%;
+}
+
+.slide.xbigcode pre {
+  font-size: 300%;
+}
+
+.center {
+  text-align: center;
+}
+
+.slide.oneliner pre {
+  text-align: center;
+}
+
+.slide.titleslide .outline-text p {
+  font-size: 150%;
+  text-align: center;
+}
+
+.slide div.motto {
+  text-align: center;
+}

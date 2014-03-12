@@ -1,0 +1,129 @@
+#+TITLE: Egenskapsbasert Testing
+#+AUTHOR: Jean Niklas L'orange
+
+#+BEGIN_HTML
+<p>Trykk <strong>T</strong> for å starte presentasjonen</p>
+#+END_HTML
+
+* Egenskapsbasert Testing                                             :slide:
+
+#+BEGIN_HTML
+<span class="center">
+#+END_HTML
+Jean Niklas L'orange
+
+[[https://twitter.com/hyPiRion][@hyPiRion]]
+
+ 17. mars 2014
+#+BEGIN_HTML
+</span>
+#+END_HTML
+
+* Hva er Egenskapsbasert Testing?                                     :slide:
+
+- Tester egenskaper ved funksjoner og oppførsel
+  - Ikke det samme som å teste et spesifikt input mot et spesifikt output
+- Kan erstatte mange, /men ikke alle/, enhetstester
+- Genererer input basert på egenskapene du spesifiserer
+  - 
+- Kan gjøres i så og si alle programmeringsspråk
+
+* Recap Enhetstesting                                                 :slide:
+
+- Tester at et spesifikt input gir et spesifikt output
+- For å teste mer må du spesifisere flere input/output
+- Veldig kjekt som regresjonstester
+  - Dvs. at ting fremdeles fungerer som forventet
+- Ikke praktisk for å finne bugs i ny funksjonalitet (generelt sett)
+
+** Eksempel på Enhetstesting                                          :slide:
+
+To eksempler på tester her:
+
+- =rev(lst)= returnerer en reversert versjon av inputlisten
+- =remove_all(lst, x)= returnerer en liste der alle =x= i =lst= er fjernet
+
+#+begin_src python
+import unittest
+
+class TestSequenceFunctions(unittest.TestCase):
+  def test_shuffle(self):
+    self.assertEqual(rev([1,2,3]), [3, 2, 1])
+    self.assertEqual(rev([65, 7, 10, 100]), [100, 10, 7, 65])
+    # og så videre...
+
+  def test_remove_all(self):
+    self.assertEqual(remove_all([1, 2, 42], 42), [1, 2])
+    self.assertEqual(remove_all([1, 100, 59], 100),
+                                [1, 59])
+    # og så videre...
+#+end_src
+
+(Ikke nødvendigvis idiomatisk Python)
+
+* Egenskapsbasert Testing                                             :slide:
+
+Som sagt handler egenskapsbasert testing om *egenskaper*. 
+
+Hvilke egenskaper har =list(reversed(lst))= og =remove_all(lst, x)=?
+
+** Egenskapsbasert Testing                                            :slide:
+
+Som sagt handler egenskapsbasert testing om *egenskaper*. 
+
+Hvilke egenskaper har =list(reversed(lst))= og =remove_all(lst, x)=?
+
+- Om du reverserer en liste to ganger, får du tilbake den samme listen
+- Fjerner du et element i en liste, vil ikke elementet eksistere i listen
+
+** Egenskapsbasert Testing i Python                                   :slide:
+
+#+begin_src python
+import generative_test as gen
+
+class TestSequenceFunctions(gen.TestCase):
+  def test_shuffle(self): # kjøres flere ganger
+    lst = gen.listOf(gen.int).generateOne()
+    self.assertEqual(rev(rev(lst)), lst)
+
+  def test_remove_all(self): # kjøres flere ganger
+    lst = gen.listOf(gen.int).generateOne()
+    x = gen.oneOf(lst).generateOne()
+    self.assertTrue(not x in remove_all(lst))
+#+end_src
+
+* Generering av input                                                 :slide:
+
+Need to change this one later
+
+#+BEGIN_HTML
+<iframe src="http://hypirion.com/musings/understanding-persistent-vector-pt-1"
+        frameborder="0" width="100%" height="600px"></iframe>
+#+END_HTML
+
+** Ressurser                                                          :slide:
+
+Her er ressurser
+
+
+
+#+OPTIONS: num:nil tags:t
+
+#+TAGS: slide(s)
+
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="common.css" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+
+#+BEGIN_HTML
+<script type="text/javascript" src="org-html-slideshow.js"></script>
+<style>
+
+</style>
+#+END_HTML
+
+# Local Variables:
+# org-html-head-include-default-style: nil
+# org-html-head-include-scripts: nil
+# End:
