@@ -1,0 +1,162 @@
+#+TITLE: Egenskapsbasert Testing
+#+AUTHOR: Jean Niklas L'orange
+
+#+BEGIN_HTML
+<p>Trykk <strong>T</strong> for å starte presentasjonen</p>
+#+END_HTML
+
+* Egenskapsbasert Testing                                             :slide:
+
+[[file:figure.svg]]
+
+#+BEGIN_HTML
+<span class="center">
+#+END_HTML
+Jean Niklas L'orange
+
+[[https://twitter.com/hyPiRion][*@hyPiRion*]]
+
+ 17. mars 2014
+#+BEGIN_HTML
+</span>
+#+END_HTML
+
+* Hva er Egenskapsbasert Testing?                                     :slide:
+
+- Tester egenskaper ved funksjoner og oppførsel
+  - Ikke det samme som å teste et spesifikt input mot et spesifikt output
+- Kan erstatte mange, /men ikke alle/, enhetstester
+- Genererer input basert på egenskapene du spesifiserer
+  - Og tester egenskapene med mange tilfeldige genererte input
+- Kan gjøres i så og si alle programmeringsspråk
+
+* Recap Enhetstesting                                                 :slide:
+
+- Tester at et spesifikt input gir et spesifikt output
+- For å teste mer må du spesifisere flere input/output
+- Kjekt som regresjonstester
+  - Dvs. sjekke at ting fremdeles fungerer som forventet
+- Ikke praktisk for å finne bugs i ny funksjonalitet (generelt sett)
+
+** Hva skal vi teste?                                                 :slide:
+
+Kommer til å benytte følgende funksjoner som eksempel:
+
+- =rev(lst)= returnerer en reversert versjon av inputlisten
+- =remove_all(lst, x)= returnerer en liste der alle =x= i =lst= er fjernet
+
+** Eksempel på Enhetstesting                                          :slide:
+
+#+begin_src python
+import unittest
+
+class TestSequenceFunctions(unittest.TestCase):
+  def test_rev(self):
+    self.assertEqual(rev([1,2,3]), [3, 2, 1])
+    self.assertEqual(rev([65, 7, 10, 100]),
+                         [100, 10, 7, 65]) # osv...
+
+  def test_remove_all(self):
+    self.assertEqual(remove_all([1, 2, 42], 42), [1, 2])
+    self.assertEqual(remove_all([1, 100, 59], 100),
+                                [1, 59]) # osv...
+#+end_src
+
+(Ikke nødvendigvis idiomatisk Python)
+
+* Egenskapsbasert Testing                                             :slide:
+
+Som tidligere nevnt handler egenskapsbasert testing om *egenskaper*.
+
+Hvilke egenskaper har =rev(lst)= og =remove_all(lst, x)=?
+
+** Egenskapsbasert Testing                                            :slide:
+
+Som tidligere nevnt handler egenskapsbasert testing om *egenskaper*.
+
+Hvilke egenskaper har =rev(lst)= og =remove_all(lst, x)=?
+
+- Om du reverserer en liste to ganger, får du tilbake den samme listen
+- Fjerner du et element i en liste, vil ikke elementet eksistere i listen
+
+** Egenskapsbasert Testing i Python                                   :slide:
+
+Her er pseudo-Python hvor vi anvender disse egenskapene:
+
+#+begin_src python
+import generative_test as gen
+
+class TestSequenceFunctions(gen.TestCase):
+  def test_rev(self): # kjøres flere ganger
+    lst = gen.listOf(gen.int).generateOne()
+    self.assertEqual(rev(rev(lst)), lst)
+
+  def test_remove_all(self): # kjøres flere ganger
+    lst = gen.listOf(gen.int).generateOne()
+    x = gen.element(lst).generateOne()
+    self.assertTrue(not x in remove_all(lst, x))
+#+end_src
+
+** Egenskapsbasert Testing – pt. 2                                    :slide:
+
+Egenskapene nevnt her er ikke nok for å være 100% sikker på at =rev(lst)= og
+=remove_all(lst, x)= fungerer som forventet. Om vi ønsker, kan vi teste flere
+egenskaper. For eksempel:
+
+- Det siste elementet i en reversert liste, er det første i den originale
+  listen
+- Om vi tar et tilfeldig element =y= fra =lst=, så vil alltid =remove_lst(lst, x)=
+  inneholde =y= hvis =x= og =y= er forskjellige
+
+** Andre Kuriositeter                                                 :slide:
+
+- Kan spesialisere det man genererer
+  - Kommer eksempel på neste slide
+- Hvis en test feiler, prøver test-biblioteket å minimere caset som feiler (kalt
+  /shrinking/)
+- Veldig godt egnet for å
+  1. Teste optimaliseringer
+  2. Sjekke at enkoding → dekoding fungerer
+
+** Generering av input                                                :slide:
+
+Går an å spesialisere inputgenerering veldig, uten mye arbeid.
+
+#+BEGIN_HTML
+<div class="javacode">
+  Trykk på enten <strong>3, 6</strong> eller <strong>9</strong>. Gjerne flere ganger!
+</div>
+#+END_HTML
+
+* Ressurser                                                           :slide:
+
+- QuickCheck2 for Haskell →
+  http://www.haskell.org/haskellwiki/Introduction_to_QuickCheck2
+- PropER for Erlang → https://github.com/manopapad/proper
+- test.check for Clojure → https://github.com/clojure/test.check
+- JSCheck for JavaScript → http://www.jscheck.org/
+- ocaml-quickcheck for OCaml → https://github.com/camlunity/ocaml-quickcheck
+- FSCheck for F# → https://github.com/fsharp/FsCheck
+- qc for Python → https://github.com/dbravender/qc
+- scalacheck for Scala → http://www.scalacheck.org/
+- quickcheck for Java → https://bitbucket.org/blob79/quickcheck
+- rubycheck for Ruby → https://github.com/mcandre/rubycheck
+
+
+#+OPTIONS: num:nil tags:t
+
+#+TAGS: slide(s)
+
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="common.css" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="screen.css" media="screen" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="projection.css" media="projection" />
+#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="presenter.css" media="presenter" />
+
+#+BEGIN_HTML
+<script type="text/javascript" src="org-html-slideshow.js"></script>
+#+END_HTML
+
+# Local Variables:
+# org-html-head-include-default-style: nil
+# org-html-head-include-scripts: nil
+# End:

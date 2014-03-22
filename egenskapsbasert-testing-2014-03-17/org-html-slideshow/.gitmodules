@@ -1,0 +1,9 @@
+[submodule "lib/one"]
+	path = lib/one
+	url = https://github.com/brentonashworth/one.git
+[submodule "lib/domina"]
+	path = lib/domina
+	url = https://github.com/levand/domina.git
+[submodule "lib/gen-java-src"]
+	path = lib/gen-java-src
+	url = https://github.com/hyPiRion/gen-java-src.git
