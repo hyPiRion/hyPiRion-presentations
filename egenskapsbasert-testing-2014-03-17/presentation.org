@@ -7,6 +7,8 @@
 
 * Egenskapsbasert Testing                                             :slide:
 
+[[file:figure.svg]]
+
 #+BEGIN_HTML
 <span class="center">
 #+END_HTML
@@ -25,23 +27,25 @@ Jean Niklas L'orange
   - Ikke det samme som å teste et spesifikt input mot et spesifikt output
 - Kan erstatte mange, /men ikke alle/, enhetstester
 - Genererer input basert på egenskapene du spesifiserer
-  - Og tester egenskapene med mange genererte input
+  - Og tester egenskapene med mange tilfeldige genererte input
 - Kan gjøres i så og si alle programmeringsspråk
 
 * Recap Enhetstesting                                                 :slide:
 
 - Tester at et spesifikt input gir et spesifikt output
 - For å teste mer må du spesifisere flere input/output
-- Veldig kjekt som regresjonstester
-  - Dvs. ting fremdeles fungerer som forventet
+- Kjekt som regresjonstester
+  - Dvs. sjekke at ting fremdeles fungerer som forventet
 - Ikke praktisk for å finne bugs i ny funksjonalitet (generelt sett)
 
-** Eksempel på Enhetstesting                                          :slide:
+** Hva skal vi teste?                                                 :slide:
 
-To eksempler på tester her:
+Kommer til å benytte følgende funksjoner som eksempel:
 
 - =rev(lst)= returnerer en reversert versjon av inputlisten
 - =remove_all(lst, x)= returnerer en liste der alle =x= i =lst= er fjernet
+
+** Eksempel på Enhetstesting                                          :slide:
 
 #+begin_src python
 import unittest
@@ -50,27 +54,25 @@ class TestSequenceFunctions(unittest.TestCase):
   def test_rev(self):
     self.assertEqual(rev([1,2,3]), [3, 2, 1])
     self.assertEqual(rev([65, 7, 10, 100]),
-                         [100, 10, 7, 65])
-    # og så videre...
+                         [100, 10, 7, 65]) # osv...
 
   def test_remove_all(self):
     self.assertEqual(remove_all([1, 2, 42], 42), [1, 2])
     self.assertEqual(remove_all([1, 100, 59], 100),
-                                [1, 59])
-    # og så videre...
+                                [1, 59]) # osv...
 #+end_src
 
 (Ikke nødvendigvis idiomatisk Python)
 
 * Egenskapsbasert Testing                                             :slide:
 
-Som sagt handler egenskapsbasert testing om *egenskaper*.
+Som tidligere nevnt handler egenskapsbasert testing om *egenskaper*.
 
 Hvilke egenskaper har =rev(lst)= og =remove_all(lst, x)=?
 
 ** Egenskapsbasert Testing                                            :slide:
 
-Som sagt handler egenskapsbasert testing om *egenskaper*.
+Som tidligere nevnt handler egenskapsbasert testing om *egenskaper*.
 
 Hvilke egenskaper har =rev(lst)= og =remove_all(lst, x)=?
 
@@ -92,25 +94,38 @@ class TestSequenceFunctions(gen.TestCase):
   def test_remove_all(self): # kjøres flere ganger
     lst = gen.listOf(gen.int).generateOne()
     x = gen.element(lst).generateOne()
-    self.assertTrue(not x in remove_all(lst))
+    self.assertTrue(not x in remove_all(lst, x))
 #+end_src
+
+** Egenskapsbasert Testing – pt. 2                                    :slide:
+
+Egenskapene nevnt her er ikke nok for å være 100% sikker på at =rev(lst)= og
+=remove_all(lst, x)= fungerer som forventet. Om vi ønsker, kan vi teste flere
+egenskaper. For eksempel:
+
+- Det siste elementet i en reversert liste, er det første i den originale
+  listen
+- Om vi tar et tilfeldig element =y= fra =lst=, så vil alltid =remove_lst(lst, x)=
+  inneholde =y= hvis =x= og =y= er forskjellige
 
 ** Andre Kuriositeter                                                 :slide:
 
 - Kan spesialisere det man genererer
-  (Kommer eksempel på neste slide)
-- Hvis en test feiler, prøver test-biblioteket å minimere caset som feiler
+  - Kommer eksempel på neste slide
+- Hvis en test feiler, prøver test-biblioteket å minimere caset som feiler (kalt
+  /shrinking/)
 - Veldig godt egnet for å
   1. Teste optimaliseringer
   2. Sjekke at enkoding → dekoding fungerer
 
 ** Generering av input                                                :slide:
 
-TODO (make webpage dumping out random Java programs.)
+Går an å spesialisere inputgenerering veldig, uten mye arbeid.
 
 #+BEGIN_HTML
-<iframe src="http://hypirion.com/musings/understanding-persistent-vector-pt-1"
-        frameborder="0" width="100%" height="600px"></iframe>
+<div class="javacode">
+  Trykk på enten <strong>3, 6</strong> eller <strong>9</strong>. Gjerne flere ganger!
+</div>
 #+END_HTML
 
 * Ressurser                                                           :slide:
