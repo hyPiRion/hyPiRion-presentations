@@ -2,13 +2,31 @@
  *
  * These styles will apply only to the slide-show view.
  */
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,400italic);
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url('fonts/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Source Sans Pro Semibold'), local('SourceSansPro-Semibold'), url('fonts/toadOcfmlt9b38dHJxOBGJ6-ys_j0H4QL65VLqzI3wI.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Source Sans Pro Italic'), local('SourceSansPro-It'), url('fonts/M2Jd71oPJhLKp0zdtTvoMzNrcjQuD0pTu1za2FULaMs.woff') format('woff');
+}
 
 body {
    margin: 0pt;
    font-size: 24pt;
-   background-color: #3F3F3F;
-   color: #fff;
+   /*background-color: #3F3F3F;*/
+   color: #000;
    font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -22,7 +40,7 @@ h1,h2,h3,h4,h5,h6,h7,h8 {
 }
 
 a {
-    color: #D0BF8F;
+    color: #870b1b; /*#D0BF8F;*/
 }
 
 li {
@@ -42,32 +60,6 @@ span.tag {
 /* Hide Org-Mode section numbers in slide-show view. */
 span.section-number-1,span.section-number-2,span.section-number-3,span.section-number-4,span.section-number-5,span.section-number-6,span.section-number-7,span.section-number-8 {
    display: none;
-}
-
-.blue_background {
-   background: blue;
-   color: white;
-}
-
-
-#footer {
-  float: left;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #005572; /* #02779E; */
-  color: #fff;
-  line-height: 2em;
-  font-size: 0.8em;
-  text-align: right;
-}
-
-#footer .name {
-  float: left;
-}
-
-#footer .name, #footer .talk {
-  padding: 0 18pt;
 }
 
 #current-slide {
@@ -91,21 +83,21 @@ pre {
     padding: 0.5em;
     line-height: 1.4em;
     white-space: pre-wrap;
-    border: 1px white solid;
+    border: 1px black solid;
     font-family: Inconsolata;
 }
 
 code {
     font-family: Inconsolata;
     font-weight: bold;
-    color: #e9e1cb;
+    color: #382f18; /* e9e1cb */
 }
 
 @font-face {
   font-family: 'Inconsolata';
   font-style: normal;
   font-weight: 400;
-  src: local("Inconsolata"), url("http://themes.googleusercontent.com/static/fonts/inconsolata/v3/BjAYBlHtW3CJxDcjzrnZCIbN6UDyHWBl620a-IRfuBk.woff") format("woff");
+  src: local("Inconsolata"), url('fonts/BjAYBlHtW3CJxDcjzrnZCIbN6UDyHWBl620a-IRfuBk.woff') format("woff");
 }
 
 .slide.bigcode pre {
@@ -135,4 +127,24 @@ code {
 
 .slide div.motto {
   text-align: center;
+}
+
+.type, .classname, .kw, .method {
+    font-weight: bold;
+}
+
+.invoke {
+    color: teal;
+}
+
+.type, .classname {
+    color: #445588;
+}
+
+.method {
+    color: #990000;
+}
+
+.number {
+    color: #009999;
 }
